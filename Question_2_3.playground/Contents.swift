@@ -10,6 +10,8 @@ class Node {
         self.value = value
         self.next = next
     }
+    
+    
 }
 
 let fiveNode = Node(value: "e", next: nil)

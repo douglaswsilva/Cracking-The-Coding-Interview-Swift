@@ -12,6 +12,21 @@ class Node {
     }
 }
 
+class Stack: Node {
+    
+    public func push(){
+        
+    }
+    
+    public func pop(){
+        
+    }
+    
+    public func peek(){
+        
+    }
+}
+
 let sevenNode = Node(value: 1, next: nil)
 let sixNode = Node(value: 2, next: sevenNode)
 let fiveNode = Node(value: 10, next: sixNode)
