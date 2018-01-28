@@ -10,20 +10,96 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    var maxStack = Stack<Int>()
+    var minStack = Stack<Int>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-        var mine = MyQueue<String>()
+//        var mine = MyQueue<String>()
+//
+//        mine.push("A")
+//        mine.push("B")
+//        mine.push("C")
+//        mine.push("D")
+//
+//        print("Last Element: ", mine.pop())
         
-        mine.push("A")
-        mine.push("B")
-        mine.push("C")
-        mine.push("D")
+        maxStack.push(5)
+        maxStack.push(2)
+        maxStack.push(3)
+        maxStack.push(1)
+        maxStack.push(4)
+        maxStack.push(5)
+        maxStack.push(9)
         
-        print("Last Element: ", mine.pop())
-        
+        sortStack()
     }
+    
+    func sortStack() {
+        
+        var count = 1
+        
+        while count > 0 {
+            
+            count = 0
+            
+            while !minStack.isEmpty {
+                if let a = minStack.pop() {
+                    maxStack.push(a)
+                }
+            }
+            
+            print("Max: ", maxStack)
+            
+            guard var temp = maxStack.pop() else { return }
+            
+            while !maxStack.isEmpty {
+                if let element = maxStack.pop() {
+                    if element < temp {
+                        minStack.push(element)
+                    } else if element >= temp {
+                        minStack.push(temp)
+                        temp = element
+                    }
+                }
+            }
+            
+            minStack.push(temp)
+            
+            print("Min: ", minStack)
+            
+            guard var temp2 = minStack.pop() else { return }
+            
+            while !minStack.isEmpty {
+                if let element = minStack.pop() {
+                    if element < temp2 {
+                        maxStack.push(temp2)
+                        temp2 = element
+                    } else if element >= temp2 {
+                        maxStack.push(element)
+                    }
+                }
+            }
+            
+            maxStack.push(temp2)
+            
+            print("Max: ", maxStack)
+            
+            while !maxStack.isEmpty {
+                if let a = maxStack.pop() {
+                    if let b = maxStack.peek(), a > b {
+                        count += 1
+                    }
+                    minStack.push(a)
+                }
+            }
+            
+            print("Min: ", minStack)
+        }
+    }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
